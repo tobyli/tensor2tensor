@@ -13,11 +13,19 @@ from tensor2tensor.data_generators import text_encoder
 from tensor2tensor.data_generators import tokenizer
 
 import tensorflow as tf
-_QA_DATASETS = [
+_QA_DATASETS_FROM_RESPONSE_TO_QUESTION = [
     [
         "",
         ("toby.response-question.response",
          "toby.response-question.question")
+    ]
+]
+
+_QA_DATASETS_FROM_QUESTION_TO_RESPONSE = [
+    [
+        "",
+        ("toby.response-question.question",
+         "toby.response-question.response")
     ]
 ]
 
@@ -28,7 +36,7 @@ def transformer_toby():
   hparams.learning_rate_cosine_cycle_steps = 100000
   return hparams
 
-@registry.register_problem("predicting_question_from_answers_twitter_entitiesAtEnd_tokens_16k")
+@registry.register_problem("predicting_questions_from_answers_twitter_entitiesAtEnd_tokens_16k")
 class AtoQWithEntities16k(wmt.WMTProblem):
     @property
     def targeted_vocab_size(self):
@@ -45,17 +53,27 @@ class AtoQWithEntities16k(wmt.WMTProblem):
     def vocab_name(self):
         return "vocab_QnA"
 
+    def dataset(self):
+        return _QA_DATASETS_FROM_RESPONSE_TO_QUESTION
+
     def train_generator(self, data_dir, tmp_dir, train):
         symbolizer_vocab = get_or_generate_vocab(
-            data_dir, tmp_dir, self.vocab_file, self.targeted_vocab_size, _QA_DATASETS)
+            data_dir, tmp_dir, self.vocab_file, self.targeted_vocab_size, self.dataset())
 
-        datasets = _QA_DATASETS if train else _QA_DATASETS
+        datasets = self.dataset()
         tag = "train" if train else "dev"
 
         #TODO: need to put training and dev data into the below folders
         #data_path = os.path.join(tmp_dir, "AtoQWithEntities16k_%s" % tag)
         data_path = wmt._compile_data(tmp_dir, datasets, "AtoQWithEntities16k_%s" % tag)
         return wmt.token_generator(data_path + ".lang1", data_path + ".lang2", symbolizer_vocab, wmt.EOS)
+
+
+@registry.register_problem("predicting_answers_from_questions_twitter_entitiesAtEnd_tokens_16k")
+class QtoAWithEntities16k(AtoQWithEntities16k):
+    def dataset(self):
+        return _QA_DATASETS_FROM_QUESTION_TO_RESPONSE
+
 
 
 def get_or_generate_vocab(data_dir, tmp_dir,
@@ -66,12 +84,10 @@ def get_or_generate_vocab(data_dir, tmp_dir,
     tf.logging.info("Found vocab file: %s", vocab_filepath)
     vocab = text_encoder.SubwordTextEncoder(vocab_filepath)
     return vocab
-
   sources = sources
   tf.logging.info("Generating vocab from: %s", str(sources))
   token_counts = defaultdict(int)
   for source in sources:
-
     for lang_file in source[1]:
       tf.logging.info("Reading file: %s" % lang_file)
       filepath = os.path.join(tmp_dir, lang_file)
