@@ -1,0 +1,56 @@
+i want to book a restaurant in Seattle | %LOCATION%
+book a restaurant in Boston | %LOCATION%
+I book a restaurant in Boston | %LOCATION%
+make a restaurant reservation in Seattle | %LOCATION%
+i want to make a restaurant reservation in Portland | %LOCATION%
+find a restaurant in Chicago | %LOCATION%
+i want to find a restaurant in Chicago | %LOCATION%
+i want to book a restaurant at 7 pm | %TIME%
+book a restaurant at 6 : 00 | %TIME%
+i book a restaurant tonight | %TIME%
+make a restaurant reservation at 6 pm | %TIME%
+i want to make a restaurant reservation at 6 pm | %TIME%
+book a table at 6 pm | %TIME%
+i want to book a table at 7 pm | %TIME%
+i want to book a restaurant tomorrow | %DATE%
+book a restaurant on friday | %DATE%
+i book a restaurant on thursday | %DATE%
+make a restaurant reservation on 5th august | %DATE%
+i want to make a restaurant reservation for today | %DATE%
+book a table for today | %DATE%
+i want to book a table for tomorrow | %DATE%
+find a cheap restaurant | %MONEY%
+i find a cheap restaurant | %MONEY%
+i want to find a cheap restaurant | %MONEY%
+i want a cheap restaurant | %MONEY%
+find an expensive restaurant | %MONEY%
+i find an expensive restaurant | %MONEY%
+i want to find an expensive restaurant | %MONEY%
+i want an expensive restaurant | %MONEY%
+it costs $ 5 | %MONEY%
+its price is $ 10 | %MONEY%
+the price of a burger is $ 3 | %MONEY%
+the pizza is cheap | %MONEY%
+i want to eat sushi
+i want sushi
+find restaurants that serve pizza
+i want to eat chinese food
+i want chinese food
+find me chinese food
+find chinese food
+i prefer italian food
+i prefer to eat italian food
+i am in the mood for french food
+find restaurants near me
+find restaurants within 5 miles | %DISTANCE%
+i want restaurants less than 3 miles away from me | %DISTANCE%
+find restaurants distance 2 miles | %DISTANCE%
+view the lunch menu | %MEALOFADAY%
+view the dinner menu | %MEALOFADAY%
+view the brunch menu | %MEALOFADAY%
+find restaurant for brunch | %MEALOFADAY%
+good restaurant for brunch | %MEALOFADAY%
+i want restaurant for appetizer | %DISHTYPE%
+find restaurant for dessert | %DISHTYPE%
+book restaurant with dessert | %DISHTYPE%
+make reservation at restuarant with dessert | %DISHTYPE%
